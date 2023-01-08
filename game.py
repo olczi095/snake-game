@@ -3,10 +3,17 @@ from sys import exit
 from random import randint
 
 
+# Draw a random donut from the list of donut images
 def draw_donut():
     number = randint(1, 6)
     random_donut = 'donut' + str(number) + '.png'
     return random_donut
+
+
+# Draw a random position for a random donut
+def draw_position():
+    x, y = randint(0, width - 40), randint(0, height - 40)
+    return x, y
 
 
 pygame.init()
@@ -14,7 +21,10 @@ screen_size = width, height = 900, 563
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
+
+# Donut with rect
 donut = pygame.image.load(f'donuts/{draw_donut()}').convert_alpha()
+donut_rect = donut.get_rect(topleft=(draw_position()))
 
 snake = pygame.image.load('snake/snake-head.png').convert_alpha()
 snake_rect = snake.get_rect(center=(width / 2, height / 2))
@@ -45,5 +55,6 @@ while True:
 
     screen.fill((222, 238, 235))
     screen.blit(snake, snake_rect)
+    screen.blit(donut, donut_rect)
     pygame.display.update()
     clock.tick(60)
