@@ -22,6 +22,7 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
 game_active = True
+points = 0
 
 # Donut with rect
 donut = pygame.image.load(f'donuts/{draw_donut()}').convert_alpha()
@@ -62,6 +63,10 @@ while True:
         screen.fill((222, 238, 235))
         screen.blit(donut, donut_rect)
         screen.blit(snake, snake_rect)
+
+        if snake_rect.colliderect(donut_rect):
+            donut_rect.topleft = draw_position()
+            points += 1
     else:
         screen.fill('black')
 
