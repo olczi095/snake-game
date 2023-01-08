@@ -12,10 +12,16 @@ def draw_donut():
 pygame.init()
 screen_size = width, height = 900, 563
 screen = pygame.display.set_mode((width, height))
-screen.fill((222, 238, 235))
 pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
 donut = pygame.image.load(f'donuts/{draw_donut()}').convert_alpha()
+
+snake = pygame.image.load('snake/snake-head.png').convert_alpha()
+snake_rect = snake.get_rect(center=(width / 2, height / 2))
+move = (0, 0)
+
+# Labels for buttons which are selected by player
+pressed_keys = {'up': False, 'down': False, 'right': False, 'left': False}
 
 while True:
     for event in pygame.event.get():
@@ -23,5 +29,21 @@ while True:
             pygame.quit()
             exit()
 
+    # Check the key event and change the type of snake's movement
+    pressed = pygame.key.get_pressed()
+    if pressed[pygame.K_UP]:
+        move = (0, -2)
+    if pressed[pygame.K_DOWN]:
+        move = (0, 2)
+    if pressed[pygame.K_LEFT]:
+        move = (-2, 0)
+    if pressed[pygame.K_RIGHT]:
+        move = (2, 0)
+
+    # Move the snake
+    snake_rect = snake_rect.move(move)
+
+    screen.fill((222, 238, 235))
+    screen.blit(snake, snake_rect)
     pygame.display.update()
     clock.tick(60)
