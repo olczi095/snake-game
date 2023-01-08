@@ -54,7 +54,7 @@ while True:
     snake_rect = snake_rect.move(move)
 
     screen.fill((222, 238, 235))
-    screen.blit(snake, snake_rect)
     screen.blit(donut, donut_rect)
+    screen.blit(snake, snake_rect)
     pygame.display.update()
     clock.tick(60)
