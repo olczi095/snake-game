@@ -35,7 +35,6 @@ pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
 game_active = True
 points = 0
-last_direction = False
 
 # Donut with rect
 donut = pygame.image.load(f'donuts/{draw_donut()}').convert_alpha()
@@ -60,16 +59,12 @@ while True:
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
             move = (0, -2)
-            last_direction = 'up'
         if pressed[pygame.K_DOWN]:
             move = (0, 2)
-            last_direction = 'down'
         if pressed[pygame.K_LEFT]:
             move = (-2, 0)
-            last_direction = 'left'
         if pressed[pygame.K_RIGHT]:
             move = (2, 0)
-            last_direction = 'right'
 
         # Check if the snake is out of the screen
         if snake_rect.left < 0 or snake_rect.right > width or snake_rect.top < 0 or snake_rect.bottom > height:
