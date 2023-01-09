@@ -28,6 +28,17 @@ def draw_grid():
             pygame.draw.rect(screen, grid_color, rect, 1)
 
 
+# Return multiple of 20 based on snake coordinate
+def multiple_20(pos):
+    if pos % 40 > 20:
+        while pos % 40 != 0:
+            pos += 1
+    else:
+        while pos % 40 != 0:
+            pos -= 1
+    return pos
+
+
 pygame.init()
 screen_size = width, height = 880, 560
 screen = pygame.display.set_mode((width, height))
@@ -59,12 +70,16 @@ while True:
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
             move = (0, -2)
+            snake_rect.x = multiple_20(snake_rect.x)
         if pressed[pygame.K_DOWN]:
             move = (0, 2)
+            snake_rect.x = multiple_20(snake_rect.x)
         if pressed[pygame.K_LEFT]:
             move = (-2, 0)
+            snake_rect.y = multiple_20(snake_rect.y)
         if pressed[pygame.K_RIGHT]:
             move = (2, 0)
+            snake_rect.y = multiple_20(snake_rect.y)
 
         # Check if the snake is out of the screen
         if snake_rect.left < 0 or snake_rect.right > width or snake_rect.top < 0 or snake_rect.bottom > height:
