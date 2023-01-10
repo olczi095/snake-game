@@ -12,8 +12,8 @@ def draw_donut():
 
 # Draw a random position for a random donut
 def draw_position():
-    scope_x = [i for i in range(0, 841) if i % 40 == 0]
-    scope_y = [i for i in range(0, 521) if i % 40 == 0]
+    scope_x = [i for i in range(0, 801) if i % 40 == 0]
+    scope_y = [i for i in range(0, 481) if i % 40 == 0]
     x, y = choice(scope_x), choice(scope_y)
     return x, y
 
@@ -44,7 +44,7 @@ def build_snake():
 
 
 pygame.init()
-screen_size = width, height = 880, 560
+screen_size = width, height = 840, 520
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
@@ -103,6 +103,7 @@ while True:
 
         # Check the collision between snake and donut + count points
         if snake_rect.colliderect(donut_rect):
+            donut_rect.topleft = draw_position()
             points += 1
 
     else:
