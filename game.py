@@ -40,7 +40,7 @@ def multiple_20(pos):
 
 
 def build_snake():
-    screen.blit(snake, snake_rect)
+    screen.blit(snake_head, snake_rect)
 
 
 pygame.init()
@@ -56,8 +56,8 @@ donut = pygame.image.load(f'donuts/{draw_donut()}').convert_alpha()
 donut_rect = donut.get_rect(topleft=(draw_position()))
 
 # Snake with rect
-snake = pygame.image.load('snake/snake-head.png').convert_alpha()
-snake_rect = snake.get_rect(center=(width / 2, height / 2))
+snake_head = pygame.image.load('snake/snake-head.png').convert_alpha()
+snake_rect = snake_head.get_rect(center=(width / 2, height / 2))
 move = (0, 0)
 
 # Labels for buttons which are selected by player
