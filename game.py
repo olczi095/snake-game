@@ -50,6 +50,7 @@ pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
 game_active = True
 points = 0
+snake_positions = []
 
 # Donut with rect
 donut = pygame.image.load(f'donuts/{draw_donut()}').convert_alpha()
@@ -89,6 +90,9 @@ while True:
         if snake_rect.left < 0 or snake_rect.right > width or snake_rect.top < 0 or snake_rect.bottom > height:
             game_active = False
 
+        # Collect info about the position of the snake's head
+        snake_positions.append(snake_rect)
+
         # Move the snake
         snake_rect = snake_rect.move(move)
 
@@ -105,6 +109,10 @@ while True:
         if snake_rect.colliderect(donut_rect):
             donut_rect.topleft = draw_position()
             points += 1
+
+        for i in range(points):
+            pygame.draw.rect(screen, (0, 124, 0, 255), pygame.Rect(
+                snake_positions[-20 * (i + 1)].x + 5, snake_positions[-20 * (i + 1)].y + 5, 30, 30))
 
     else:
         screen.fill('black')
