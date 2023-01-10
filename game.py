@@ -39,6 +39,10 @@ def multiple_20(pos):
     return pos
 
 
+def build_snake():
+    screen.blit(snake, snake_rect)
+
+
 pygame.init()
 screen_size = width, height = 880, 560
 screen = pygame.display.set_mode((width, height))
@@ -95,11 +99,10 @@ while True:
 
         # Set the donut and the snake
         screen.blit(donut, donut_rect)
-        screen.blit(snake, snake_rect)
+        build_snake()
 
         # Check the collision between snake and donut + count points
         if snake_rect.colliderect(donut_rect):
-            donut_rect.topleft = draw_position()
             points += 1
 
     else:
