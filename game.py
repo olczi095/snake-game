@@ -39,6 +39,7 @@ def multiple_20(pos):
     return pos
 
 
+# Draw the snake's head on the screen
 def build_snake():
     screen.blit(snake_head, snake_rect)
 
@@ -110,9 +111,15 @@ while True:
             donut_rect.topleft = draw_position()
             points += 1
 
+        # Create the snake body
         for i in range(points):
-            pygame.draw.rect(screen, (0, 124, 0, 255), pygame.Rect(
-                snake_positions[-20 * (i + 1)].x + 5, snake_positions[-20 * (i + 1)].y + 5, 30, 30))
+            chunk_of_snake_body = pygame.Rect(
+                snake_positions[-20 * (i + 1)].x + 5, snake_positions[-20 * (i + 1)].y + 5, 30, 30)
+            pygame.draw.rect(screen, (0, 124, 0, 255), chunk_of_snake_body)
+            # End the game when snake will touch itself
+            if i > 1:
+                if chunk_of_snake_body.collidepoint(snake_rect.x, snake_rect.y):
+                    game_active = False
 
     else:
         screen.fill('black')
