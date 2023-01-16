@@ -75,10 +75,10 @@ screen_size = width, height = 840, 520
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
-game_active = False
-end_game = False
-points = 0
+state = 'start_menu'   # To choose -> start_menu, game_active, end_game
 snake_positions = []
+points = 0
+end_score = 0
 
 # Load the fonts
 first_font = pygame.font.Font('fonts/SparkyStonesRegular.ttf', 150)
@@ -109,9 +109,12 @@ while True:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                game_active = True
+                state = 'game_active'
 
-    if game_active:
+    if state == 'start_menu':
+        start_screen(screen)
+
+    elif state == 'game_active':
         # Check the key event and change the type of snake's movement
         pressed = pygame.key.get_pressed()
         if pressed[pygame.K_UP]:
@@ -129,7 +132,7 @@ while True:
 
         # Check if the snake is out of the screen
         if snake_rect.left < 0 or snake_rect.right > width or snake_rect.top < 0 or snake_rect.bottom > height:
-            game_active = False
+            state = 'end_game'
 
         # Collect info about the position of the snake's head
         snake_positions.append(snake_rect)
@@ -150,6 +153,7 @@ while True:
         if snake_rect.colliderect(donut_rect):
             donut_rect.topleft = draw_position()
             points += 1
+            end_score += 1
 
         # Create the snake body
         for i in range(points):
@@ -159,10 +163,13 @@ while True:
             # End the game when snake will touch itself
             if i > 1:
                 if chunk_of_snake_body.collidepoint(snake_rect.x, snake_rect.y):
-                    game_active = False
+                    state = 'end_game'
 
-    else:
-        start_screen(screen)
+    elif state == 'end_game':
+        end_screen(screen, end_score)
+        snake_rect = snake_head.get_rect(center=(width / 2, height / 2))
+        move = (0, 0)
+        points = 0
 
     clock.tick(60)
     pygame.display.update()
