@@ -58,6 +58,7 @@ def start_screen(base_screen):
 
 def end_screen(base_screen, score):
     base_screen.blit(background, (0, 0))
+    first_font.size('80')
     text = third_font.render(f'Your score: {score}', False, (255, 215, 0))
     text_rect = text.get_rect(center=(width/2, height / 2 - 50))
     base_screen.blit(text, text_rect)
