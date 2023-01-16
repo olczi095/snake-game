@@ -50,9 +50,23 @@ def start_screen(base_screen):
     text = first_font.render('SNAKE', False, (255, 215, 0))
     text_rect = text.get_rect(center=(width / 2, height / 2 - 80))
     base_screen.blit(text, text_rect)
+    second_font.set_bold(True)
     text2 = second_font.render('Press SPACE to start', False, 'black')
     text2_rect = text2.get_rect(center=(width / 2, height / 2 + 30))
     base_screen.blit(text2, text2_rect)
+
+
+def end_screen(base_screen, score):
+    base_screen.blit(background, (0, 0))
+    text = third_font.render(f'Your score: {score}', False, (255, 215, 0))
+    text_rect = text.get_rect(center=(width/2, height / 2 - 50))
+    base_screen.blit(text, text_rect)
+    text2 = second_font.render('Press SPACE to play again', False, 'black')
+    text3 = second_font.render('Press ESC to quit', False, 'black')
+    text2_rect = text2.get_rect(center=(width/2, height/2 + 30))
+    text3_rect = text3.get_rect(center=(width/2, height/2 + 60))
+    base_screen.blit(text2, text2_rect)
+    base_screen.blit(text3, text3_rect)
 
 
 pygame.init()
@@ -67,7 +81,8 @@ snake_positions = []
 
 # Load the fonts
 first_font = pygame.font.Font('fonts/SparkyStonesRegular.ttf', 150)
-second_font = pygame.font.Font('fonts/OpenSans-Light.ttf', 50)
+second_font = pygame.font.Font('fonts/OpenSans-Light.ttf', 30)
+third_font = pygame.font.Font('fonts/SparkyStonesRegular.ttf', 80)
 
 # Load the background image
 background = pygame.image.load('screen/background.jpg').convert()
