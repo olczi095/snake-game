@@ -44,14 +44,34 @@ def build_snake():
     screen.blit(snake_head, snake_rect)
 
 
+# Draw the screen to start the game
+def start_screen(base_screen):
+    base_screen.blit(background, (0, 0))
+    text = first_font.render('SNAKE', False, (255, 215, 0))
+    text_rect = text.get_rect(center=(width / 2, height / 2 - 80))
+    base_screen.blit(text, text_rect)
+    text2 = second_font.render('Press SPACE to start', False, 'black')
+    text2_rect = text2.get_rect(center=(width / 2, height / 2 + 30))
+    base_screen.blit(text2, text2_rect)
+
+
 pygame.init()
 screen_size = width, height = 840, 520
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
-game_active = True
+game_active = False
+end_game = False
 points = 0
 snake_positions = []
+
+# Load the fonts
+first_font = pygame.font.Font('fonts/SparkyStonesRegular.ttf', 150)
+second_font = pygame.font.Font('fonts/OpenSans-Light.ttf', 50)
+
+# Load the background image
+background = pygame.image.load('screen/background.jpg').convert()
+pygame.transform.scale(background, screen_size)
 
 # Donut with rect
 donut = pygame.image.load(f'donuts/{draw_donut()}').convert_alpha()
@@ -70,6 +90,10 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                game_active = True
 
     if game_active:
         # Check the key event and change the type of snake's movement
@@ -122,7 +146,7 @@ while True:
                     game_active = False
 
     else:
-        screen.fill('black')
+        start_screen(screen)
 
     clock.tick(60)
     pygame.display.update()
