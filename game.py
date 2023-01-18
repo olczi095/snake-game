@@ -83,6 +83,8 @@ end_score = 0
 
 # Load audio
 eating_sound = pygame.mixer.Sound('sounds/eating-sound.mp3')
+magic_sound = pygame.mixer.Sound('sounds/magic-sound.mp3')
+magic_sound.set_volume(0.05)
 
 # Load the fonts
 first_font = pygame.font.Font('fonts/SparkyStonesRegular.ttf', 150)
@@ -121,6 +123,7 @@ while True:
 
     if state == 'start_menu':
         start_screen(screen)
+        magic_sound.play()  # Play the music
 
     elif state == 'game_active':
         # Check the key event and change the type of snake's movement
@@ -174,11 +177,14 @@ while True:
                 if chunk_of_snake_body.collidepoint(snake_rect.x, snake_rect.y):
                     state = 'end_game'
 
+        magic_sound.stop()  # Turn off the music while game is active
+
     elif state == 'end_game':
         end_screen(screen, end_score)
         snake_rect = snake_head.get_rect(center=(width / 2, height / 2))
         move = (0, 0)
         points = 0
+        magic_sound.play()  # Play the music
 
     clock.tick(60)
     pygame.display.update()
