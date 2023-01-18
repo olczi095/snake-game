@@ -81,6 +81,9 @@ snake_positions = []
 points = 0
 end_score = 0
 
+# Load audio
+eating_sound = pygame.mixer.Sound('sounds/eating-sound.mp3')
+
 # Load the fonts
 first_font = pygame.font.Font('fonts/SparkyStonesRegular.ttf', 150)
 second_font = pygame.font.Font('fonts/OpenSans-Light.ttf', 30)
@@ -157,6 +160,7 @@ while True:
         # Check the collision between snake and donut + count points
         if snake_rect.colliderect(donut_rect):
             donut_rect.topleft = draw_position()
+            eating_sound.play()
             points += 1
             end_score += 1
 
