@@ -112,6 +112,9 @@ while True:
             if event.key == pygame.K_SPACE:
                 state = 'game_active'
                 end_score = 0  # Reset the score before the new game
+            if state == 'end_game' and event.key == pygame.K_ESCAPE:
+                pygame.quit()
+                exit()
 
     if state == 'start_menu':
         start_screen(screen)
