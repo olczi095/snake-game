@@ -56,16 +56,17 @@ def start_screen(base_screen):
     base_screen.blit(text2, text2_rect)
 
 
+# Draw the screen to end the game and ask if user wants to play again
 def end_screen(base_screen, score):
     base_screen.blit(background, (0, 0))
     first_font.size('80')
     text = third_font.render(f'Your score: {score}', False, (255, 215, 0))
-    text_rect = text.get_rect(center=(width/2, height / 2 - 50))
+    text_rect = text.get_rect(center=(width / 2, height / 2 - 50))
     base_screen.blit(text, text_rect)
     text2 = second_font.render('Press SPACE to play again', False, 'black')
     text3 = second_font.render('Press ESC to quit', False, 'black')
-    text2_rect = text2.get_rect(center=(width/2, height/2 + 30))
-    text3_rect = text3.get_rect(center=(width/2, height/2 + 60))
+    text2_rect = text2.get_rect(center=(width / 2, height / 2 + 30))
+    text3_rect = text3.get_rect(center=(width / 2, height / 2 + 60))
     base_screen.blit(text2, text2_rect)
     base_screen.blit(text3, text3_rect)
 
@@ -75,7 +76,7 @@ screen_size = width, height = 840, 520
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
-state = 'start_menu'   # To choose -> start_menu, game_active, end_game
+state = 'start_menu'  # To choose -> start_menu, game_active, end_game
 snake_positions = []
 points = 0
 end_score = 0
@@ -110,6 +111,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 state = 'game_active'
+                end_score = 0  # Reset the score before the new game
 
     if state == 'start_menu':
         start_screen(screen)
