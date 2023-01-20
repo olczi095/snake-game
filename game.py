@@ -12,8 +12,8 @@ def draw_donut():
 
 # Draw a random position for a random donut
 def draw_position():
-    scope_x = [i for i in range(0, 801) if i % 40 == 0]
-    scope_y = [i for i in range(0, 481) if i % 40 == 0]
+    scope_x = [i for i in range(0, 721) if i % 40 == 0]
+    scope_y = [i for i in range(0, 401) if i % 40 == 0]
     x, y = choice(scope_x), choice(scope_y)
     return x, y
 
@@ -72,7 +72,7 @@ def end_screen(base_screen, score):
 
 
 pygame.init()
-screen_size = width, height = 840, 520
+screen_size = width, height = 760, 440
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
