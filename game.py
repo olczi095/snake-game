@@ -22,8 +22,8 @@ def draw_position():
 def draw_grid():
     grid_color = (222, 255, 235)
     block_size = 40
-    for x in range(0, game_width, block_size):
-        for y in range(0, game_height, block_size):
+    for x in range(shift, game_width + shift, block_size):
+        for y in range(2 * shift, game_height + 2 * shift, block_size):
             rect = pygame.Rect(x, y, block_size, block_size)
             pygame.draw.rect(screen, grid_color, rect, 1)
 
@@ -72,16 +72,16 @@ def end_screen(base_screen, score):
 
 
 pygame.init()
-screen_size = game_width, game_height = 760, 440
-screen = pygame.display.set_mode((game_width, game_height))
-main_screen_size = width, height = 840, 560
-main_screen = pygame.display.set_mode((width, height))
+game_size = game_width, game_height = 760, 440
+screen_size = width, height = 840, 560
+screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('SNAKE')
 clock = pygame.time.Clock()
 state = 'start_menu'  # To choose -> start_menu, game_active, end_game
 snake_positions = []
 points = 0
 end_score = 0
+shift = 40
 
 # Load audio
 eating_sound = pygame.mixer.Sound('sounds/eating-sound.mp3')
@@ -95,7 +95,7 @@ third_font = pygame.font.Font('fonts/SparkyStonesRegular.ttf', 80)
 
 # Load the background image
 background = pygame.image.load('screen/background.jpg').convert()
-pygame.transform.scale(background, main_screen_size)
+pygame.transform.scale(background, screen_size)
 
 # Donut with rect
 donut = pygame.image.load(f'donuts/{draw_donut()}').convert_alpha()
@@ -124,7 +124,7 @@ while True:
                 exit()
 
     if state == 'start_menu':
-        start_screen(main_screen)
+        start_screen(screen)
         magic_sound.play()  # Play the music
 
     elif state == 'game_active':
@@ -182,7 +182,7 @@ while True:
         magic_sound.stop()  # Turn off the music while game is active
 
     elif state == 'end_game':
-        end_screen(main_screen, end_score)
+        end_screen(screen, end_score)
         snake_rect = snake_head.get_rect(center=(width / 2, height / 2))
         move = (0, 0)
         points = 0
