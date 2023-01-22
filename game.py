@@ -81,8 +81,8 @@ state = 'start_menu'  # To choose -> start_menu, game_active, end_game
 snake_positions = []
 points = 0
 end_score = 0
-game_screen_x = (40, game_width + 40)
-game_screen_y = (80, game_height + 80)
+game_screen_x = (40, game_width + 40)  # For displaying the game board (when snake can move)
+game_screen_y = (80, game_height + 80)  # For displaying the game board (when snake can move)
 
 # Load audio
 eating_sound = pygame.mixer.Sound('sounds/eating-sound.mp3')
@@ -146,7 +146,8 @@ while True:
             snake_rect.y = multiple_20(snake_rect.y)
 
         # Check if the snake is out of the screen
-        if snake_rect.left < 0 or snake_rect.right > width or snake_rect.top < 0 or snake_rect.bottom > height:
+        if snake_rect.left < game_screen_x[0] or snake_rect.right > game_screen_x[1] \
+                or snake_rect.top < game_screen_y[0] or snake_rect.bottom > game_screen_y[1]:
             state = 'end_game'
 
         # Collect info about the position of the snake's head
