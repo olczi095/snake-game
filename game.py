@@ -71,6 +71,15 @@ def end_screen(base_screen, score):
     base_screen.blit(text3, text3_rect)
 
 
+# Draw the score above the game screen
+def draw_score(score):
+    text = second_font.render(f'{score}', False, (255, 215, 0))
+    text_rect = text.get_rect(center=(game_screen_x[0] + 60, game_screen_y[0] / 2))
+    donut_score_rect = donut.get_rect(midleft=(game_screen_x[0], game_screen_y[0] / 2))
+    screen.blit(text, text_rect)
+    screen.blit(donut, donut_score_rect)
+
+
 pygame.init()
 game_size = game_width, game_height = 760, 440
 screen_size = width, height = 840, 560
@@ -164,6 +173,8 @@ while True:
         # Set the donut and the snake
         screen.blit(donut, donut_rect)
         build_snake()
+
+        draw_score(points)
 
         # Check the collision between snake and donut + count points
         if snake_rect.colliderect(donut_rect):
