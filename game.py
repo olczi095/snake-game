@@ -12,8 +12,8 @@ def draw_donut():
 
 # Draw a random position for a random donut
 def draw_position():
-    scope_x = [i for i in range(0, 721) if i % 40 == 0]
-    scope_y = [i for i in range(0, 401) if i % 40 == 0]
+    scope_x = [i for i in range(game_screen_x[0], game_screen_x[1] - 39) if i % 40 == 0]
+    scope_y = [i for i in range(game_screen_y[0], game_screen_y[1] - 39) if i % 40 == 0]
     x, y = choice(scope_x), choice(scope_y)
     return x, y
 
