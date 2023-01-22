@@ -22,8 +22,8 @@ def draw_position():
 def draw_grid():
     grid_color = (222, 255, 235)
     block_size = 40
-    for x in range(shift, game_width + shift, block_size):
-        for y in range(2 * shift, game_height + 2 * shift, block_size):
+    for x in range(game_screen_x[0], game_screen_x[1], block_size):
+        for y in range(game_screen_y[0], game_screen_y[1], block_size):
             rect = pygame.Rect(x, y, block_size, block_size)
             pygame.draw.rect(screen, grid_color, rect, 1)
 
@@ -81,7 +81,8 @@ state = 'start_menu'  # To choose -> start_menu, game_active, end_game
 snake_positions = []
 points = 0
 end_score = 0
-shift = 40
+game_screen_x = (40, game_width + 40)
+game_screen_y = (80, game_height + 80)
 
 # Load audio
 eating_sound = pygame.mixer.Sound('sounds/eating-sound.mp3')
@@ -103,7 +104,8 @@ donut_rect = donut.get_rect(topleft=(draw_position()))
 
 # Snake with rect
 snake_head = pygame.image.load('snake/snake-head.png').convert_alpha()
-snake_rect = snake_head.get_rect(center=(width / 2, height / 2))
+snake_rect = snake_head.get_rect(center=((game_screen_x[1] + game_screen_x[0]) / 2,
+                                         (game_screen_y[1] + game_screen_y[0]) / 2))
 move = (0, 0)
 
 # Labels for buttons which are selected by player
