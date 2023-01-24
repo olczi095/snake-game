@@ -91,6 +91,15 @@ def display_time(time):
     screen.blit(clock_image, clock_rect)
 
 
+# Draw sound image
+def display_sound():
+    if audio_status:
+        screen.blit(sound_image, sound_rect)
+    else:
+        screen.blit(sound_image, sound_rect)
+        pygame.draw.line(screen, 'red', sound_rect.topleft, sound_rect.bottomright, 2)
+
+
 pygame.init()
 game_size = game_width, game_height = 760, 440
 screen_size = width, height = 840, 560
@@ -102,6 +111,7 @@ snake_positions = []
 points = 0
 end_score = 0
 start_time = 0
+audio_status = False  # Only check status while playing
 game_screen_x = (40, game_width + 40)  # For displaying the game board (when snake can move)
 game_screen_y = (80, game_height + 80)  # For displaying the game board (when snake can move)
 
@@ -109,6 +119,11 @@ game_screen_y = (80, game_height + 80)  # For displaying the game board (when sn
 eating_sound = pygame.mixer.Sound('sounds/eating-sound.mp3')
 magic_sound = pygame.mixer.Sound('sounds/magic-sound.mp3')
 magic_sound.set_volume(0.05)
+
+# Load sound image
+sound_image = pygame.image.load('screen/sound.svg').convert_alpha()
+sound_image = pygame.transform.smoothscale(sound_image, (40, 40))
+sound_rect = sound_image.get_rect(midright=(game_screen_x[1], game_screen_y[0] / 2))
 
 # Load the fonts
 first_font = pygame.font.Font('fonts/SparkyStonesRegular.ttf', 150)
@@ -191,6 +206,7 @@ while True:
         display_score(points)
         game_time = round((pygame.time.get_ticks() - start_time) / 1000, 2)
         display_time(game_time)
+        display_sound()
 
         # Check the collision between snake and donut + count points
         if snake_rect.colliderect(donut_rect):
@@ -216,7 +232,7 @@ while True:
         snake_rect = snake_head.get_rect(center=(width / 2, height / 2))
         move = (0, 0)
         points = 0
-        magic_sound.play()  # Play the music
+        magic_sound.play()
 
     clock.tick(60)
     pygame.display.update()
