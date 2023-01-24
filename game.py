@@ -12,8 +12,8 @@ def draw_donut():
 
 # Draw a random position for a random donut
 def draw_position():
-    scope_x = [i for i in range(game_screen_x[0], game_screen_x[1] - 39) if i % 40 == 0]
-    scope_y = [i for i in range(game_screen_y[0], game_screen_y[1] - 39) if i % 40 == 0]
+    scope_x = [num for num in range(game_screen_x[0], game_screen_x[1] - 39) if num % 40 == 0]
+    scope_y = [num for num in range(game_screen_y[0], game_screen_y[1] - 39) if num % 40 == 0]
     x, y = choice(scope_x), choice(scope_y)
     return x, y
 
@@ -81,7 +81,6 @@ def display_score(score):
 
 
 # Draw game time above the game screen
-# #7cda9e
 def display_time(time):
     text = second_font.render(f'{time}', False, (0, 180, 50, 190))
     text_rect = text.get_rect(midleft=(width / 2, game_screen_y[0] / 2))
@@ -144,13 +143,13 @@ while True:
                 state = 'game_active'
                 end_score = 0  # Reset the score before the new game
                 start_time = pygame.time.get_ticks()
-            if state == 'end_game' and event.key == pygame.K_ESCAPE:
+            if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 exit()
 
     if state == 'start_menu':
         start_screen(screen)
-        magic_sound.play()  # Play the music
+        magic_sound.play()
 
     elif state == 'game_active':
         # Check the key event and change the type of snake's movement
