@@ -85,7 +85,8 @@ def display_score(score):
 def display_time(time):
     text = second_font.render(f'{time}', False, (0, 180, 50, 190))
     text_rect = text.get_rect(midleft=(width / 2, game_screen_y[0] / 2))
-    clock_image = pygame.image.load('screen/clock.png').convert_alpha()
+    clock_image = pygame.image.load('screen/clock-image.png').convert_alpha()
+    clock_image = pygame.transform.smoothscale(clock_image, (40, 40))
     clock_rect = clock_image.get_rect(midright=(width / 2 - 10, game_screen_y[0] / 2))
     screen.blit(text, text_rect)
     screen.blit(clock_image, clock_rect)
