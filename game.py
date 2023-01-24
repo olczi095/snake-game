@@ -95,9 +95,11 @@ def display_time(time):
 def display_sound():
     if audio_status:
         screen.blit(sound_image, sound_rect)
+        magic_sound.play()
     else:
         screen.blit(sound_image, sound_rect)
         pygame.draw.line(screen, 'red', sound_rect.topleft, sound_rect.bottomright, 2)
+        magic_sound.stop()
 
 
 pygame.init()
@@ -162,6 +164,13 @@ while True:
                 pygame.quit()
                 exit()
 
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if sound_rect.collidepoint(pygame.mouse.get_pos()):
+                if audio_status is True:
+                    audio_status = False
+                else:
+                    audio_status = True
+
     if state == 'start_menu':
         start_screen(screen)
         magic_sound.play()
@@ -225,7 +234,7 @@ while True:
                 if chunk_of_snake_body.collidepoint(snake_rect.x, snake_rect.y):
                     state = 'end_game'
 
-        magic_sound.stop()  # Turn off the music while game is active
+        # magic_sound.stop()  # Turn off the music by default while game is active
 
     elif state == 'end_game':
         end_screen(screen, end_score)
