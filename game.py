@@ -72,12 +72,23 @@ def end_screen(base_screen, score):
 
 
 # Draw the score above the game screen
-def draw_score(score):
+def display_score(score):
     text = second_font.render(f'{score}', False, (255, 215, 0))
     text_rect = text.get_rect(center=(game_screen_x[0] + 60, game_screen_y[0] / 2))
     donut_score_rect = donut.get_rect(midleft=(game_screen_x[0], game_screen_y[0] / 2))
     screen.blit(text, text_rect)
     screen.blit(donut, donut_score_rect)
+
+
+# Draw game time above the game screen
+# #7cda9e
+def display_time(time):
+    text = second_font.render(f'{time}', False, (0, 180, 50, 190))
+    text_rect = text.get_rect(midleft=(width / 2, game_screen_y[0] / 2))
+    clock_image = pygame.image.load('screen/clock.png').convert_alpha()
+    clock_rect = clock_image.get_rect(midright=(width / 2 - 10, game_screen_y[0] / 2))
+    screen.blit(text, text_rect)
+    screen.blit(clock_image, clock_rect)
 
 
 pygame.init()
@@ -90,6 +101,7 @@ state = 'start_menu'  # To choose -> start_menu, game_active, end_game
 snake_positions = []
 points = 0
 end_score = 0
+start_time = 0
 game_screen_x = (40, game_width + 40)  # For displaying the game board (when snake can move)
 game_screen_y = (80, game_height + 80)  # For displaying the game board (when snake can move)
 
@@ -130,6 +142,7 @@ while True:
             if event.key == pygame.K_SPACE:
                 state = 'game_active'
                 end_score = 0  # Reset the score before the new game
+                start_time = pygame.time.get_ticks()
             if state == 'end_game' and event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 exit()
@@ -174,7 +187,10 @@ while True:
         screen.blit(donut, donut_rect)
         build_snake()
 
-        draw_score(points)
+        # Display some element during the game
+        display_score(points)
+        game_time = round((pygame.time.get_ticks() - start_time) / 1000, 2)
+        display_time(game_time)
 
         # Check the collision between snake and donut + count points
         if snake_rect.colliderect(donut_rect):
