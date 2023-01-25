@@ -162,6 +162,13 @@ while True:
                 state = 'game_active'
                 end_score = 0  # Reset the score before the new game
                 start_time = pygame.time.get_ticks()
+
+                # Change background music
+                pygame.mixer.music.stop()
+                pygame.mixer.music.unload()
+                pygame.mixer.music.load('sounds/background-music.mp3')
+                pygame.mixer.music.play(-1)
+
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 exit()
