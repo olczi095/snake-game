@@ -1,6 +1,7 @@
 import pygame
-from sys import exit
 from random import randint, choice
+from sys import exit
+from time import sleep
 
 
 # Draw a random donut from the list of donut images
@@ -102,6 +103,15 @@ def display_sound():
         pygame.mixer.music.pause()
 
 
+# Stop the board and play "negative-beep"
+def the_end():
+    pygame.mixer.music.stop()
+    negative_beep.play()
+    sleep(3)
+    pygame.mixer.music.play()
+    pygame.mixer.music.pause()
+
+
 pygame.init()
 pygame.mixer.init()
 game_size = game_width, game_height = 760, 440
@@ -120,9 +130,11 @@ game_screen_y = (80, game_height + 80)  # For displaying the game board (when sn
 
 # Load audio
 pygame.mixer.music.load('sounds/magic-sound.mp3')
-eating_sound = pygame.mixer.Sound('sounds/eating-sound.mp3')
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.05)
+eating_sound = pygame.mixer.Sound('sounds/eating-sound.mp3')
+negative_beep = pygame.mixer.Sound('sounds/negative-beep.mp3')
+negative_beep.set_volume(0.5)
 
 # Load sound image
 sound_image = pygame.image.load('screen/sound.svg').convert_alpha()
@@ -203,6 +215,7 @@ while True:
         if snake_rect.left < game_screen_x[0] or snake_rect.right > game_screen_x[1] \
                 or snake_rect.top < game_screen_y[0] or snake_rect.bottom > game_screen_y[1]:
             state = 'end_game'
+            the_end()
 
         # Collect info about the position of the snake's head
         snake_positions.append(snake_rect)
@@ -241,6 +254,7 @@ while True:
             if i > 1:
                 if chunk_of_snake_body.collidepoint(snake_rect.x, snake_rect.y):
                     state = 'end_game'
+                    the_end()
 
     elif state == 'end_game':
         end_screen(screen, end_score)
