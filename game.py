@@ -95,14 +95,15 @@ def display_time(time):
 def display_sound():
     if audio_status:
         screen.blit(sound_image, sound_rect)
-        magic_sound.play()
+        pygame.mixer.music.unpause()
     else:
         screen.blit(sound_image, sound_rect)
         pygame.draw.line(screen, 'red', sound_rect.topleft, sound_rect.bottomright, 2)
-        magic_sound.stop()
+        pygame.mixer.music.pause()
 
 
 pygame.init()
+pygame.mixer.init()
 game_size = game_width, game_height = 760, 440
 screen_size = width, height = 840, 560
 screen = pygame.display.set_mode((width, height))
@@ -118,9 +119,10 @@ game_screen_x = (40, game_width + 40)  # For displaying the game board (when sna
 game_screen_y = (80, game_height + 80)  # For displaying the game board (when snake can move)
 
 # Load audio
+pygame.mixer.music.load('sounds/magic-sound.mp3')
 eating_sound = pygame.mixer.Sound('sounds/eating-sound.mp3')
-magic_sound = pygame.mixer.Sound('sounds/magic-sound.mp3')
-magic_sound.set_volume(0.05)
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.05)
 
 # Load sound image
 sound_image = pygame.image.load('screen/sound.svg').convert_alpha()
@@ -173,7 +175,6 @@ while True:
 
     if state == 'start_menu':
         start_screen(screen)
-        magic_sound.play()
 
     elif state == 'game_active':
         # Check the key event and change the type of snake's movement
@@ -234,14 +235,12 @@ while True:
                 if chunk_of_snake_body.collidepoint(snake_rect.x, snake_rect.y):
                     state = 'end_game'
 
-        # magic_sound.stop()  # Turn off the music by default while game is active
-
     elif state == 'end_game':
         end_screen(screen, end_score)
         snake_rect = snake_head.get_rect(center=(width / 2, height / 2))
         move = (0, 0)
         points = 0
-        magic_sound.play()
+        pygame.mixer.music.unpause()
 
     clock.tick(60)
     pygame.display.update()
