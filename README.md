@@ -1,13 +1,19 @@
 # snake-game
 This is my first version of one of the most popular and in my opinion the best games of all time - **the iconic _SNAKE_**!
 I created it mainly to practise the pygame library. I made it myself from the beggining to the end.
-# Game rules
+## Game rules
 The game chooses randomly a donut for your snake. There are six kinds of donuts to choose from and image of snake is always the same.
 Your goal (as a snake) is to eat as many donuts as you can. Remember that snake's head can't touch the snake's body and the edge of the game board. If it happenes, the snake will stop and your game wil be over :(
-# Libraries and Technologies
+## Installation
+For Python 3.11.0 at first you need to install the right version of PyGame in the terminal:
+```bash
+pip install pygame==2.1.3.dev8
+```
+
+## Libraries and Technologies
 - **Python 3.11.0**
-- **Pygame 2.1.3.dev8**
-# Screenshots
+- **PyGame 2.1.3.dev8**
+## Screenshots
 
 <p align="center">
 Let's start the game...</p>
