@@ -5,11 +5,22 @@ I created it mainly to practise the pygame library. I made it myself from the be
 The game chooses randomly a donut for your snake. There are six kinds of donuts to choose from and image of snake is always the same.
 Your goal (as a snake) is to eat as many donuts as you can. Remember that snake's head can't touch the snake's body and the edge of the game board. If it happenes, the snake will stop and your game wil be over :(
 ## Installation
-For Python 3.11.0 you need to install the right version of PyGame in the terminal:
+1. Clone the repo
 ```bash
-pip install pygame==2.1.3.dev8
+  git clone https://github.com/olczi095/snake-game.git
 ```
-
+2. Install the required dependencies
+```bash
+  pip3 install -r requirements.txt
+```
+3. Change the directory
+```bash
+  cd caesar-cipher
+```
+4. Run the game
+```bash
+  python3 game.py
+```
 ## Libraries and Technologies
 - **Python 3.11.0**
 - **PyGame 2.1.3.dev8**
