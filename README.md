@@ -11,7 +11,7 @@ Your goal (as a snake) is to eat as many donuts as you can. Remember that snake'
 ```
 2. Change the directory
 ```bash
-  cd caesar-cipher
+  cd snake-game
 ```
 3. Install the required dependencies
 ```bash
